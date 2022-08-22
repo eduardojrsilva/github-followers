@@ -5,7 +5,7 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: ${({ theme }) => theme.fonts.roboto}
+    font-family: 'Roboto, sans-serif';
   }
   #root {
     isolation: isolate;

@@ -1,16 +1,9 @@
 import 'styled-components';
+import { theme } from '../styles/theme';
+
+type ThemeType = typeof theme;
 
 declare module 'styled-components' {
-  interface Colors {
-    black: string;
-  }
-
-  interface Fonts {
-    roboto: string;
-  }
-
-  export interface DefaultTheme {
-    colors: Colors;
-    fonts: Fonts;
-  }
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface, prettier/prettier
+  export interface DefaultTheme extends ThemeType { }
 }
