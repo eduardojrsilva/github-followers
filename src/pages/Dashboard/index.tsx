@@ -67,18 +67,22 @@ const Dashboard: React.FC = () => {
               </Menu>
 
               <UsersList>
-                {usersList.map((user) => (
-                  <div key={user.id}>
-                    <div>
-                      <img src={user.avatar_url} alt="" />
-                      <strong>{user.login}</strong>
-                    </div>
+                {!usersList.length ? (
+                  <span>Não há usuários para exibir</span>
+                ) : (
+                  usersList.map((user) => (
+                    <div key={user.id}>
+                      <div>
+                        <img src={user.avatar_url} alt="" />
+                        <strong>{user.login}</strong>
+                      </div>
 
-                    <a href={user.html_url} target="_blank" rel="noreferrer">
-                      Perfil
-                    </a>
-                  </div>
-                ))}
+                      <a href={user.html_url} target="_blank" rel="noreferrer">
+                        Perfil
+                      </a>
+                    </div>
+                  ))
+                )}
               </UsersList>
             </div>
           </>

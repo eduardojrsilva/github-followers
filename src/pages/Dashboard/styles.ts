@@ -95,6 +95,12 @@ export const UsersList = styled.div`
       }
     }
   }
+
+  > span {
+    margin: 1rem;
+    text-align: center;
+    color: ${({ theme }) => theme['gray-500']};
+  }
 `;
 
 export const NoUser = styled.div`
