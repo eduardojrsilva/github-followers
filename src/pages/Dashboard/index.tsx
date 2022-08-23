@@ -1,5 +1,8 @@
 import Header from '../../components/Header';
+
 import SearchForm from './SearchForm';
+import UserInfo from './UserInfo';
+
 import { Content } from './styles';
 
 const Dashboard: React.FC = () => {
@@ -8,6 +11,7 @@ const Dashboard: React.FC = () => {
       <Header />
       <Content>
         <SearchForm />
+        <UserInfo />
       </Content>
     </>
   );
