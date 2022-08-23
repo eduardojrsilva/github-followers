@@ -1,5 +1,7 @@
 import React, { createContext, ReactNode, useCallback, useContext, useState } from 'react';
 
+import { useToast } from './Toast';
+
 import api from '../services/api';
 
 interface User {
@@ -26,15 +28,24 @@ const UserContext = createContext<UserContextData>({} as UserContextData);
 const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User>({} as User);
 
-  const getUser = useCallback(async (username: string) => {
-    try {
-      const { data } = await api.get(`/users/${username}`);
+  const { addToast } = useToast();
 
-      setUser(data);
-    } catch {
-      alert('Error');
-    }
-  }, []);
+  const getUser = useCallback(
+    async (username: string) => {
+      try {
+        const { data } = await api.get(`/users/${username}`);
+
+        setUser(data);
+      } catch {
+        addToast({
+          title: 'Erro',
+          description: 'Erro ao buscar usuário',
+          type: 'error',
+        });
+      }
+    },
+    [addToast],
+  );
 
   return <UserContext.Provider value={{ user, getUser }}>{children}</UserContext.Provider>;
 };

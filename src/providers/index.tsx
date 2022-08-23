@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
+import { ToastProvider } from './Toast';
 import { UserProvider } from './UserProvider';
 
 import { GlobalStyle } from '../styles/global';
@@ -17,7 +18,9 @@ const AppProvider: FC<AppProviderProps> = ({ children }) => {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
 
-        <UserProvider>{children}</UserProvider>
+        <ToastProvider>
+          <UserProvider>{children}</UserProvider>
+        </ToastProvider>
       </ThemeProvider>
     </BrowserRouter>
   );

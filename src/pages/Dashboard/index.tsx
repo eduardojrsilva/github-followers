@@ -1,4 +1,4 @@
-import Header from '../../components/header';
+import Header from '../../components/Header';
 import SearchForm from './SearchForm';
 import { Content } from './styles';
 
