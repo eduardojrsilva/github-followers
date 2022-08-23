@@ -58,48 +58,48 @@ export const UsersList = styled.div`
   border-radius: 0 10px 10px;
   background: ${({ theme }) => theme['gray-900']};
 
-  > div {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: ${({ theme }) => theme['gray-700']};
-    border-radius: 10px;
-    padding: 1rem;
-
-    > div {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-
-      img {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-      }
-    }
-
-    > a {
-      background: ${({ theme }) => theme['gray-700']};
-      border: 1px solid ${({ theme }) => theme['blue-500']};
-      border-radius: 6px;
-      padding: 5px 15px;
-
-      color: ${({ theme }) => theme['blue-500']};
-      text-transform: uppercase;
-      font-family: 700 1rem 'Roboto Mono', monospace;
-
-      :hover {
-        transition: background-color 0.2s;
-        background: ${({ theme }) => theme['blue-500']};
-        color: ${({ theme }) => theme.white};
-      }
-    }
-  }
-
   > span {
     margin: 1rem;
     text-align: center;
     color: ${({ theme }) => theme['gray-500']};
+  }
+`;
+
+export const UserContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: ${({ theme }) => theme['gray-700']};
+  border-radius: 10px;
+  padding: 1rem;
+
+  > div {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+  }
+
+  > a {
+    background: ${({ theme }) => theme['gray-700']};
+    border: 1px solid ${({ theme }) => theme['blue-500']};
+    border-radius: 6px;
+    padding: 5px 15px;
+
+    color: ${({ theme }) => theme['blue-500']};
+    text-transform: uppercase;
+    font-family: 700 1rem 'Roboto Mono', monospace;
+
+    :hover {
+      transition: background-color 0.2s;
+      background: ${({ theme }) => theme['blue-500']};
+      color: ${({ theme }) => theme.white};
+    }
   }
 `;
 

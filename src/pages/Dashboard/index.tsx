@@ -7,7 +7,8 @@ import UserInfo from './UserInfo';
 
 import { useUser } from '../../providers/UserProvider';
 
-import { Content, Menu, MenuItem, NoUser, UsersList } from './styles';
+import { Content, Menu, MenuItem, NoUser, UserContainer, UsersList } from './styles';
+import Loader from '../../components/Loader';
 
 type MenuOptions = 'dontFollowMe' | 'IdontFollow';
 
@@ -20,14 +21,20 @@ interface User {
 
 const Dashboard: React.FC = () => {
   const [activeMenuTab, setActiveMenuTab] = useState<MenuOptions>('dontFollowMe');
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingUsersList, setIsLoadingUsersList] = useState(false);
 
   const { user: myUser, getUsersDontFollowMe, getUsersIdontFollow } = useUser();
   const [usersList, setUsersList] = useState<User[]>([]);
 
   const getUsers = useCallback(async () => {
+    setIsLoading(true);
+
     const users = await getUsersDontFollowMe();
 
+    setActiveMenuTab('dontFollowMe');
     setUsersList(users);
+    setIsLoading(false);
   }, [getUsersDontFollowMe]);
 
   useEffect(() => {
@@ -37,67 +44,83 @@ const Dashboard: React.FC = () => {
 
   const handleChangeMenuTab = async (tab: MenuOptions): Promise<void> => {
     setActiveMenuTab(tab);
+    setIsLoadingUsersList(true);
 
     if (tab === 'dontFollowMe') {
       setUsersList(await getUsersDontFollowMe());
     } else {
       setUsersList(await getUsersIdontFollow());
     }
+
+    setIsLoadingUsersList(false);
   };
   return (
     <>
       <Header />
       <Content>
         <SearchForm />
-
-        {!myUser.name ? (
-          <NoUser>
-            <SearchIcon />
-            <span>Busque por um usuário</span>
-          </NoUser>
+        {isLoading ? (
+          <Loader />
         ) : (
           <>
-            <UserInfo />
+            {!myUser.name ? (
+              <NoUser>
+                <SearchIcon />
+                <span>Busque por um usuário</span>
+              </NoUser>
+            ) : (
+              <>
+                <UserInfo />
 
-            <div>
-              <Menu>
-                <ul>
-                  <MenuItem $isActive={activeMenuTab === 'dontFollowMe'}>
-                    <button type="button" onClick={() => handleChangeMenuTab('dontFollowMe')}>
-                      Usuários que não me seguem de volta
-                    </button>
-                  </MenuItem>
+                <div>
+                  <Menu>
+                    <ul>
+                      <MenuItem $isActive={activeMenuTab === 'dontFollowMe'}>
+                        <button type="button" onClick={() => handleChangeMenuTab('dontFollowMe')}>
+                          Usuários que não me seguem de volta
+                        </button>
+                      </MenuItem>
 
-                  <MenuItem
-                    $isActive={activeMenuTab === 'IdontFollow'}
-                    onClick={() => handleChangeMenuTab('IdontFollow')}
-                  >
-                    <button type="button">Usuários que não sigo de volta</button>
-                  </MenuItem>
-                </ul>
-              </Menu>
+                      <MenuItem
+                        $isActive={activeMenuTab === 'IdontFollow'}
+                        onClick={() => handleChangeMenuTab('IdontFollow')}
+                      >
+                        <button type="button">Usuários que não sigo de volta</button>
+                      </MenuItem>
+                    </ul>
+                  </Menu>
 
-              <UsersList>
-                {!usersList.length ? (
-                  <span>Não há usuários para exibir</span>
-                ) : (
-                  usersList.map((user) => (
-                    <div key={user.id}>
-                      <div>
-                        <img src={user.avatar_url} alt="" />
-                        <strong>{user.login}</strong>
-                      </div>
+                  <UsersList>
+                    {isLoadingUsersList ? (
+                      <Loader />
+                    ) : (
+                      <>
+                        {!usersList.length ? (
+                          <span>Não há usuários para exibir</span>
+                        ) : (
+                          usersList.map((user) => (
+                            <UserContainer key={user.id}>
+                              <div>
+                                <img src={user.avatar_url} alt="" />
+                                <strong>{user.login}</strong>
+                              </div>
 
-                      <a href={user.html_url} target="_blank" rel="noreferrer">
-                        Perfil
-                      </a>
-                    </div>
-                  ))
-                )}
-              </UsersList>
-            </div>
+                              <a href={user.html_url} target="_blank" rel="noreferrer">
+                                Perfil
+                              </a>
+                            </UserContainer>
+                          ))
+                        )}
+                      </>
+                    )}
+                  </UsersList>
+                </div>
+              </>
+            )}
           </>
         )}
+
+        <div />
       </Content>
     </>
   );
