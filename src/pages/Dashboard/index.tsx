@@ -9,6 +9,7 @@ import { useUser } from '../../providers/UserProvider';
 
 import { Content, Menu, MenuItem, NoUser, UserContainer, UsersList } from './styles';
 import Loader from '../../components/Loader';
+import Paginator from '../../components/Paginator';
 
 type MenuOptions = 'dontFollowMe' | 'IdontFollow';
 
