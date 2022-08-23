@@ -104,6 +104,8 @@ export const NoUser = styled.div`
   margin-top: 3rem;
 
   span {
+    color: ${({ theme }) => theme['gray-500']};
     font-size: 1.5rem;
+    font-family: 'Roboto Mono', monospace;
   }
 `;
