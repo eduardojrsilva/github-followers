@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { ReactComponent as SearchIcon } from '../../assets/search.svg';
 
 import Header from '../../components/Header';
-import { useUser } from '../../providers/UserProvider';
-
 import SearchForm from './SearchForm';
 import UserInfo from './UserInfo';
+
+import { useUser } from '../../providers/UserProvider';
 
 import { Content, Menu, MenuItem, NoUser, UsersList } from './styles';
 
@@ -20,17 +20,28 @@ interface User {
 
 const Dashboard: React.FC = () => {
   const [activeMenuTab, setActiveMenuTab] = useState<MenuOptions>('dontFollowMe');
+
+  const { user: myUser, getUsersDontFollowMe, getUsersIdontFollow } = useUser();
   const [usersList, setUsersList] = useState<User[]>([]);
 
-  const { user: myUser } = useUser();
+  const getUsers = useCallback(async () => {
+    const users = await getUsersDontFollowMe();
 
-  const handleChangeMenuTab = (tab: MenuOptions): void => {
+    setUsersList(users);
+  }, [getUsersDontFollowMe]);
+
+  useEffect(() => {
+    getUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [myUser]);
+
+  const handleChangeMenuTab = async (tab: MenuOptions): Promise<void> => {
     setActiveMenuTab(tab);
 
     if (tab === 'dontFollowMe') {
-      setUsersList([]);
+      setUsersList(await getUsersDontFollowMe());
     } else {
-      setUsersList([]);
+      setUsersList(await getUsersIdontFollow());
     }
   };
   return (
