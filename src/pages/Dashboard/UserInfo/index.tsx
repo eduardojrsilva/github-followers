@@ -1,11 +1,11 @@
 import { Buildings, MapPin } from 'phosphor-react';
+
 import { useUser } from '../../../providers/UserProvider';
+
 import { Container, Info } from './styles';
 
 const UserInfo: React.FC = () => {
   const { user } = useUser();
-
-  if (!user.name) return <></>;
 
   return (
     <Container>
