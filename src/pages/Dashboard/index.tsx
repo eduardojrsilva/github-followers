@@ -24,32 +24,25 @@ const Dashboard: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingUsersList, setIsLoadingUsersList] = useState(false);
 
-  const { user: myUser, getUsersDontFollowMe, getUsersIdontFollow } = useUser();
+  const { user: myUser, usersDontFollowMe, usersIdontFollow } = useUser();
   const [usersList, setUsersList] = useState<User[]>([]);
 
-  const getUsers = useCallback(async () => {
+  useEffect(() => {
     setIsLoading(true);
 
-    const users = await getUsersDontFollowMe();
-
     setActiveMenuTab('dontFollowMe');
-    setUsersList(users);
+    setUsersList(usersDontFollowMe);
     setIsLoading(false);
-  }, [getUsersDontFollowMe]);
-
-  useEffect(() => {
-    getUsers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [myUser]);
+  }, [usersDontFollowMe]);
 
   const handleChangeMenuTab = async (tab: MenuOptions): Promise<void> => {
     setActiveMenuTab(tab);
     setIsLoadingUsersList(true);
 
     if (tab === 'dontFollowMe') {
-      setUsersList(await getUsersDontFollowMe());
+      setUsersList(usersDontFollowMe);
     } else {
-      setUsersList(await getUsersIdontFollow());
+      setUsersList(usersIdontFollow);
     }
 
     setIsLoadingUsersList(false);
