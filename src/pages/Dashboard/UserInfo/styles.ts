@@ -13,6 +13,11 @@ export const Container = styled.div`
     height: 130px;
     border-radius: 50%;
   }
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 export const Info = styled.div`
@@ -32,5 +37,14 @@ export const Info = styled.div`
       gap: 3px;
       font-size: ${convertPixelToRem(14)};
     }
+
+    @media (max-width: 850px) {
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+
+  @media (max-width: 600px) {
+    align-items: center;
   }
 `;

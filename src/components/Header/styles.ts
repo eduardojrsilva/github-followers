@@ -8,10 +8,13 @@ export const Container = styled.header`
 
 export const Content = styled.div`
   display: flex;
-  justify-content: space-between;
   max-width: ${convertPixelToRem(1120)};
   margin: 0 auto;
   padding: 0 ${convertPixelToRem(15)};
+
+  @media (max-width: 500px) {
+    justify-content: center;
+  }
 `;
 
 export const Logo = styled.div`
@@ -29,5 +32,15 @@ export const Logo = styled.div`
   > h1 {
     font-family: 'Roboto Mono', monospace;
     font-size: ${convertPixelToRem(24)};
+  }
+
+  @media (max-width: 850px) {
+    > span {
+      font-size: ${convertPixelToRem(24)};
+    }
+
+    > h1 {
+      font-size: ${convertPixelToRem(20)};
+    }
   }
 `;

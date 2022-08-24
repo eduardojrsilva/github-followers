@@ -56,6 +56,7 @@ export const Loading = styled.div`
       transform: rotate(360deg);
     }
   }
+
   @keyframes spin {
     0% {
       -webkit-transform: rotate(0deg);

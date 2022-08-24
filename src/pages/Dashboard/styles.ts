@@ -47,6 +47,10 @@ export const MenuItem = styled.li<MenuItemProps>`
             background: ${theme['gray-600']};
           }
         `}
+
+  @media (max-width: 550px) {
+    width: 50%;
+  }
 `;
 
 export const UsersList = styled.div`
@@ -62,6 +66,10 @@ export const UsersList = styled.div`
     margin: 1rem;
     text-align: center;
     color: ${({ theme }) => theme['gray-500']};
+  }
+
+  @media (max-width: 550px) {
+    border-top-right-radius: 0px;
   }
 `;
 
@@ -101,6 +109,15 @@ export const UserContainer = styled.div`
       color: ${({ theme }) => theme.white};
     }
   }
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+    gap: 1rem;
+
+    > div {
+      flex-direction: column;
+    }
+  }
 `;
 
 export const NoUser = styled.div`
@@ -113,5 +130,17 @@ export const NoUser = styled.div`
     color: ${({ theme }) => theme['gray-500']};
     font-size: 1.5rem;
     font-family: 'Roboto Mono', monospace;
+    text-align: center;
+  }
+
+  @media (max-width: 850px) {
+    svg {
+      width: 150px;
+      height: 150px;
+    }
+
+    span {
+      font-size: 1.3rem;
+    }
   }
 `;
