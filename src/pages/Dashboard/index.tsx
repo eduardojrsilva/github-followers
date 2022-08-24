@@ -2,14 +2,13 @@ import { useCallback, useEffect, useState } from 'react';
 import { ReactComponent as SearchIcon } from '../../assets/search.svg';
 
 import Header from '../../components/Header';
+import Loader from '../../components/Loader';
 import SearchForm from './SearchForm';
 import UserInfo from './UserInfo';
 
 import { useUser } from '../../providers/UserProvider';
 
 import { Content, Menu, MenuItem, NoUser, UserContainer, UsersList } from './styles';
-import Loader from '../../components/Loader';
-import Paginator from '../../components/Paginator';
 
 type MenuOptions = 'dontFollowMe' | 'IdontFollow';
 
