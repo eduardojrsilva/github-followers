@@ -1,3 +1,4 @@
+import { convertPixelToRem } from 'css-blocks-styled-components';
 import styled from 'styled-components';
 
 export const PaginatorContainer = styled.div`
@@ -6,6 +7,17 @@ export const PaginatorContainer = styled.div`
   justify-content: space-between;
   margin: 0 3rem;
   gap: 1rem;
+
+  > strong {
+    color: ${({ theme }) => theme['blue-300']};
+    font-family: 'Roboto Mono', monospace;
+    font-size: ${convertPixelToRem(14)};
+  }
+
+  > div {
+    display: flex;
+    align-items: center;
+  }
 `;
 
 export const Button = styled.button`
@@ -16,13 +28,15 @@ export const Button = styled.button`
   height: 30px;
   border: 1px solid ${({ theme }) => theme['blue-500']};
   cursor: pointer;
+
   &:hover {
     background: ${({ theme }) => theme['gray-600']};
     border-color: ${({ theme }) => theme['blue-300']};
     color: ${({ theme }) => theme['blue-300']};
   }
+
   &:disabled {
-    background: ${({ theme }) => theme['blue-500']};
+    background: ${({ theme }) => theme['blue-300']};
     color: ${({ theme }) => theme.white};
   }
 `;

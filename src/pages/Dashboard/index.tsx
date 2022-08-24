@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ReactComponent as SearchIcon } from '../../assets/search.svg';
 
 import Header from '../../components/Header';
 import Loader from '../../components/Loader';
+import Paginator from '../../components/Paginator';
 import SearchForm from './SearchForm';
 import UserInfo from './UserInfo';
 
@@ -91,18 +92,24 @@ const Dashboard: React.FC = () => {
                         {!usersList.length ? (
                           <span>Não há usuários para exibir</span>
                         ) : (
-                          usersList.map((user) => (
-                            <UserContainer key={user.id}>
-                              <div>
-                                <img src={user.avatar_url} alt="" />
-                                <strong>{user.login}</strong>
-                              </div>
+                          <Paginator items={usersList}>
+                            {(displayUsers) => (
+                              <>
+                                {displayUsers.map((user) => (
+                                  <UserContainer key={user.id}>
+                                    <div>
+                                      <img src={user.avatar_url} alt="" />
+                                      <strong>{user.login}</strong>
+                                    </div>
 
-                              <a href={user.html_url} target="_blank" rel="noreferrer">
-                                Perfil
-                              </a>
-                            </UserContainer>
-                          ))
+                                    <a href={user.html_url} target="_blank" rel="noreferrer">
+                                      Perfil
+                                    </a>
+                                  </UserContainer>
+                                ))}
+                              </>
+                            )}
+                          </Paginator>
                         )}
                       </>
                     )}
