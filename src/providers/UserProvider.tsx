@@ -2,7 +2,7 @@ import React, { createContext, ReactNode, useCallback, useContext, useState } fr
 
 import { useToast } from './Toast';
 
-import api from '../services/api';
+import api, { getFollowers, getFollowing } from '../services/api';
 
 interface User {
   login: string;
@@ -55,41 +55,9 @@ const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     [addToast],
   );
 
-  const getFollowers = useCallback(async () => {
-    try {
-      const { data } = await api.get<FollowUser[]>(`/users/${user.login}/followers`);
-
-      return data;
-    } catch {
-      addToast({
-        title: 'Erro',
-        description: 'Erro ao buscar usuários',
-        type: 'error',
-      });
-    }
-
-    return [];
-  }, [addToast, user.login]);
-
-  const getFollowing = useCallback(async () => {
-    try {
-      const { data } = await api.get<FollowUser[]>(`/users/${user.login}/following`);
-
-      return data;
-    } catch {
-      addToast({
-        title: 'Erro',
-        description: 'Erro ao buscar usuários',
-        type: 'error',
-      });
-    }
-
-    return [];
-  }, [addToast, user.login]);
-
   const getUsersDontFollowMe = useCallback(async (): Promise<FollowUser[]> => {
-    const followers = await getFollowers();
-    const following = await getFollowing();
+    const followers = await getFollowers(user.login);
+    const following = await getFollowing(user.login);
 
     const usersDontFollowMe = following.reduce((acc, followUser) => {
       if (followers.some(({ id }) => followUser.id === id)) return acc;
@@ -98,11 +66,11 @@ const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     }, [] as FollowUser[]);
 
     return usersDontFollowMe;
-  }, [getFollowers, getFollowing]);
+  }, [user.login]);
 
   const getUsersIdontFollow = useCallback(async (): Promise<FollowUser[]> => {
-    const followers = await getFollowers();
-    const following = await getFollowing();
+    const followers = await getFollowers(user.login);
+    const following = await getFollowing(user.login);
 
     const usersIdontFollow = followers.reduce((acc, followUser) => {
       if (following.some(({ id }) => followUser.id === id)) return acc;
@@ -111,7 +79,7 @@ const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     }, [] as FollowUser[]);
 
     return usersIdontFollow;
-  }, [getFollowers, getFollowing]);
+  }, [user.login]);
 
   return (
     <UserContext.Provider value={{ user, getUser, getUsersDontFollowMe, getUsersIdontFollow }}>
