@@ -34,6 +34,8 @@ interface UserProviderProps {
 
 const UserContext = createContext<UserContextData>({} as UserContextData);
 
+const PER_PAGE = 100;
+
 const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User>({} as User);
   const [usersDontFollowMe, setUsersDontFollowMe] = useState<FollowUser[]>([]);
@@ -48,8 +50,8 @@ const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 
         setUser(userInfo);
 
-        const followers = await getFollowers(userInfo.login);
-        const following = await getFollowing(userInfo.login);
+        const followers = await getFollowers(userInfo.login, PER_PAGE);
+        const following = await getFollowing(userInfo.login, PER_PAGE);
 
         setUsersDontFollowMe(await getUsersDontFollowMe(followers, following));
         setUsersIdontFollow(await getUsersIdontFollow(followers, following));

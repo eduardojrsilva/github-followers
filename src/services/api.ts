@@ -26,14 +26,22 @@ export async function getUserInfo(username: string): Promise<User> {
   return data;
 }
 
-export async function getFollowers(user: string): Promise<FollowUser[]> {
-  const { data } = await api.get<FollowUser[]>(`/users/${user}/followers`);
+export async function getFollowers(user: string, per_page: number): Promise<FollowUser[]> {
+  const { data } = await api.get<FollowUser[]>(`/users/${user}/followers`, {
+    params: {
+      per_page,
+    },
+  });
 
   return data;
 }
 
-export async function getFollowing(user: string): Promise<FollowUser[]> {
-  const { data } = await api.get<FollowUser[]>(`/users/${user}/following`);
+export async function getFollowing(user: string, per_page: number): Promise<FollowUser[]> {
+  const { data } = await api.get<FollowUser[]>(`/users/${user}/following`, {
+    params: {
+      per_page,
+    },
+  });
 
   return data;
 }
