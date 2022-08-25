@@ -17,6 +17,20 @@ export const PaginatorContainer = styled.div`
   > div {
     display: flex;
     align-items: center;
+    gap: 1rem;
+
+    > div {
+      display: flex;
+    }
+
+    @media (max-width: 500px) {
+      flex-direction: column;
+    }
+  }
+
+  @media (max-width: 750px) {
+    flex-direction: column;
+    margin: 0 1rem;
   }
 `;
 
@@ -39,11 +53,16 @@ export const Button = styled.button`
     background: ${({ theme }) => theme['blue-300']};
     color: ${({ theme }) => theme.white};
   }
+
+  @media (max-width: 400px) {
+    width: 25px;
+    height: 25px;
+  }
 `;
 
 export const HiddenPages = styled.span`
   display: inline-block;
   text-align: center;
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
 `;

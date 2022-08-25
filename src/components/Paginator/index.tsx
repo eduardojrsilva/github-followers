@@ -94,7 +94,6 @@ function Paginator<Item>({ items, children }: PaginatorProps<Item>): JSX.Element
     borderColor: theme['blue-500'],
     width: convertPixelToRem(75),
     color: theme['blue-300'],
-    marginLeft: convertPixelToRem(24),
   });
 
   return (
@@ -105,41 +104,43 @@ function Paginator<Item>({ items, children }: PaginatorProps<Item>): JSX.Element
         <strong>{`Exibindo ${summaryStart} - ${summaryEnd} de ${totalCountOfRegisters}`}</strong>
 
         <div>
-          <Button onClick={handlePageDown}>&lt;</Button>
+          <div>
+            <Button onClick={handlePageDown}>&lt;</Button>
 
-          {currentPage > 1 + siblingsCount && (
-            <>
-              <PaginationItem onPageChange={onPageChange} number={1} />
-              {currentPage > 3 + siblingsCount && <HiddenPages>...</HiddenPages>}
-              {currentPage - (siblingsCount + 1) === 2 && (
-                <PaginationItem onPageChange={onPageChange} number={2} />
-              )}
-            </>
-          )}
+            {currentPage > 1 + siblingsCount && (
+              <>
+                <PaginationItem onPageChange={onPageChange} number={1} />
+                {currentPage > 3 + siblingsCount && <HiddenPages>...</HiddenPages>}
+                {currentPage - (siblingsCount + 1) === 2 && (
+                  <PaginationItem onPageChange={onPageChange} number={2} />
+                )}
+              </>
+            )}
 
-          {previousPages.length > 0 &&
-            previousPages.map((page) => {
-              return <PaginationItem onPageChange={onPageChange} key={page} number={page} />;
-            })}
+            {previousPages.length > 0 &&
+              previousPages.map((page) => {
+                return <PaginationItem onPageChange={onPageChange} key={page} number={page} />;
+              })}
 
-          <PaginationItem onPageChange={onPageChange} number={currentPage} isCurrent />
+            <PaginationItem onPageChange={onPageChange} number={currentPage} isCurrent />
 
-          {nextPages.length > 0 &&
-            nextPages.map((page) => {
-              return <PaginationItem onPageChange={onPageChange} key={page} number={page} />;
-            })}
+            {nextPages.length > 0 &&
+              nextPages.map((page) => {
+                return <PaginationItem onPageChange={onPageChange} key={page} number={page} />;
+              })}
 
-          {currentPage + siblingsCount < lastPage && (
-            <>
-              {currentPage + 2 + siblingsCount < lastPage && <HiddenPages>...</HiddenPages>}
-              {lastPage - (currentPage + siblingsCount) === 2 && (
-                <PaginationItem onPageChange={onPageChange} number={lastPage - 1} />
-              )}
-              <PaginationItem onPageChange={onPageChange} number={lastPage} />
-            </>
-          )}
+            {currentPage + siblingsCount < lastPage && (
+              <>
+                {currentPage + 2 + siblingsCount < lastPage && <HiddenPages>...</HiddenPages>}
+                {lastPage - (currentPage + siblingsCount) === 2 && (
+                  <PaginationItem onPageChange={onPageChange} number={lastPage - 1} />
+                )}
+                <PaginationItem onPageChange={onPageChange} number={lastPage} />
+              </>
+            )}
 
-          <Button onClick={handlePageUp}>&gt;</Button>
+            <Button onClick={handlePageUp}>&gt;</Button>
+          </div>
 
           <Select
             options={PROJECT_PER_PAGE_OPTIONS}
