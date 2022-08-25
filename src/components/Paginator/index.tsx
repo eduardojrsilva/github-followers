@@ -50,7 +50,8 @@ function Paginator<Item>({ items, children }: PaginatorProps<Item>): JSX.Element
   );
 
   const summaryStart = registersPerPage * currentPage - registersPerPage + 1;
-  const summaryEnd = registersPerPage * currentPage;
+  const summaryEnd =
+    currentPage === lastPage ? totalCountOfRegisters : registersPerPage * currentPage;
 
   const previousPages =
     currentPage > 1 ? generatePagesArray(currentPage - 1 - siblingsCount, currentPage - 1) : [];
@@ -144,6 +145,7 @@ function Paginator<Item>({ items, children }: PaginatorProps<Item>): JSX.Element
             options={PROJECT_PER_PAGE_OPTIONS}
             defaultValue={PROJECT_PER_PAGE_OPTIONS[0]}
             onChange={handleItemPerPageChange}
+            menuPlacement="auto"
             isSearchable={false}
             styles={selectStyle}
           />

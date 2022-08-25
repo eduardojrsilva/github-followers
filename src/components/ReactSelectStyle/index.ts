@@ -49,8 +49,20 @@ export function getReactSelectStyle({
       fontSize: convertPixelToRem(12),
       margin: '0',
       borderRadius: '10px',
+      width,
+      marginLeft,
       color,
       background: theme['gray-800'],
+    }),
+    option: (styles: React.CSSProperties, state: any) => ({
+      ...styles,
+      ':not(:focus)': {
+        background: state.isSelected ? theme['blue-300'] : theme['gray-800'],
+      },
+      ':hover': {
+        background: state.isSelected ? theme['blue-300'] : theme['gray-700'],
+        transition: 'background-color 0.3s',
+      },
     }),
   };
 
